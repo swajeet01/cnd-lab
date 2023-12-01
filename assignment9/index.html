@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CND Lab WebSocket Assignment</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { }
+      li { list-style: none; border-bottom: 1px solid black; margin: 0.25rem; }
+      #form { position: fixed; left: 0; bottom: 0; right: 0; padding: 0.25rem;
+        box-sizing: border-box; display: flex; }
+      #input { flex-grow: 1; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { margin: 0.25rem; border: none;
+        background-color: #3030fe; color: #fff; border-radius: 2px; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"> </script>
+    <script>
+      const socket = io()
+
+      const form = document.getElementById('form')
+      const input = document.getElementById('input')
+      const messages = document.getElementById('messages')
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        if (input.value) {
+          socket.emit('chat-message', input.value)
+          input.value = ''
+        }
+      });
+
+      socket.on('chat-message', (msg) => {
+        const item = document.createElement('li')
+        item.textContent = msg
+        messages.appendChild(item)
+        window.scrollTo(0, document.body.scrollHeight)
+      })
+    </script>
+  </body>
+</html>

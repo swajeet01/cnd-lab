@@ -1,0 +1,25 @@
+# OMNeT++ projects
+.settings/
+out/
+results/
+*.exe
+.qtenvrc
+.cproject
+.oppbuildspec
+.project
+
+# Java projects
+out/
+*.class
+
+# NodeJS projects
+node_modules/
+
+# Python (venv) projects
+bin/
+include/
+lib/
+__pycache__
+lib64/
+lib64
+pyvenv.cfg

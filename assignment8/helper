@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Helper script for running the Assignment 8
+# Author: Swajeet Swarnkar
+
+cnd_compile_client () {
+  javac -cp ./src/ -d ./out/ ./src/com/sg/client/Client.java
+}
+
+cnd_compile_server () {
+  javac -cp ./src/ -d ./out/ ./src/com/sg/server/Server.java
+}
+
+cnd_compile_all () {
+  cnd_compile_server
+  cnd_compile_client
+}
+
+cnd_run_server () {
+  java -cp ./out/ com.sg.server.Server
+}
+
+cnd_run_client () {
+  if [[ -z "$1" ]] then
+    CND_IP_ADDR="127.0.0.1"
+  else
+    CND_IP_ADDR="$1"
+  fi
+  java -cp ./out/ com.sg.client.Client "$CND_IP_ADDR"
+}
+
+cnd_clean () {
+  rm -r ./out/ 2> /dev/null
+}
+
+echo "Environment ready."
+echo ""
+echo "Available commands-"
+echo "  cnd_compile_all         : Compiles client and server."
+echo "  cnd_compile_server      : Compiles only server."
+echo "  cnd_compile_client      : Compiles only client."
+echo "  cnd_run_server          : Runs server."
+echo "  cnd_run_client [ip]     : Runs client on specified IP or on 127.0.0.1 if not given."
+echo "  cnd_clean               : Cleans the project folder, deletes all class files."
+echo ""
+echo "Author @Swajeet Swarnkar"
